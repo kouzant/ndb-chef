@@ -21,7 +21,7 @@ if node['mysql']['tls'].casecmp?("true")
     found_id=find_service_id("mysqld", node['mysql']['id'])
     my_ip = my_private_ip()
     mysql_ip = node['mysql']['localhost'] == "true" ? "localhost" : my_ip
-
+    allowed_host = node['mysql']['localhost'].casecmp?("true") ? "localhost" : "%"
     template "#{node['ndb']['root_dir']}/my.cnf" do
         source "my-ndb.cnf.erb"
         owner node['ndb']['user']
@@ -31,7 +31,8 @@ if node['mysql']['tls'].casecmp?("true")
         variables({
             :mysql_id => found_id,
             :my_ip => mysql_ip,
-            :mysql_tls => true 
+            :mysql_tls => true,
+            :allowed_host => allowed_host
     })
     notifies :restart, resources(:service => "mysqld"), :immediately
     end
