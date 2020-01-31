@@ -61,7 +61,7 @@ service "#{service_name}" do
 end
 
 mysql_ip = node['mysql']['localhost'] == "true" ? "localhost" : my_ip
-allowed_host = node['mysql']['localhost'].casecmp?("true") ? "localhost" : "%"
+allowed_host = node['install']['localhost'].casecmp?("true") ? "localhost" : "%"
 template "#{node['ndb']['root_dir']}/my.cnf" do
   source "my-ndb.cnf.erb"
   owner node['ndb']['user']
