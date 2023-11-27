@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -ex
 
 ## Expected directory structure for the backup directory
 ## {ROOT_BACKUP_DIRECTORY}
